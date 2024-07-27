@@ -36,9 +36,9 @@ async def on_message(message):
     global captcha
     if message.author.id == 854233015475109888 and captcha:
         if message.content.startswith("@Pokétwo#8236 ev m shoot"):
-        resultado = message.content[len("@Pokétwo#8236 ev m shoot"):]
-        await asyncio.sleep(5) 
-        await message.channel.send(f"<@716390085896962058> ev m shoot{resultado}")
+            resultado = message.content[len("@Pokétwo#8236 ev m shoot"):]
+            await asyncio.sleep(5)
+            await message.channel.send(f"<@716390085896962058> ev m shoot{resultado}")
 
     if message.author.id == 716390085896962058 and captcha:
         if message.embeds:
@@ -46,7 +46,6 @@ async def on_message(message):
             if 'wild pokémon has appeared!' in embed_title:
                 await asyncio.sleep(1)
                 await message.channel.send('<@716390085896962058> hint')
-            
 
     if captcha:
         content = message.content
