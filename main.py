@@ -1,13 +1,14 @@
-import asyncio, random, string, json 
-from discord.ext import commands, tasks
-import re, discord
-import subprocess
+import asyncio
+import random
+import re
+import discord
+from discord.ext import commands
 
-TOKEN = "token"
-PREFIX = "prefix"
+TOKEN = " "
+PREFIX = " "
 CAPTCHA_CHANNEL_id = 
 
-with open('pokemon', 'r', encoding='utf8') as file: 
+with open('pokemon', 'r', encoding='utf8') as file:
     pokemon_list = file.read()
 
 client = commands.Bot(command_prefix=PREFIX)
@@ -30,21 +31,21 @@ async def on_ready():
     channel = client.get_channel(CAPTCHA_CHANNEL_id)
     await channel.send("Iniciado com sucesso.")
 
-@client.event 
-async def on_message(message): 
-     if message.author.id == 854233015475109888 and captcha and message.content.startswith("@Pokétwo#8236 ev m shoot"): 
-     await message.channel.send(message.content)
-    
-
 @client.event
 async def on_message(message):
     global captcha
+    if message.author.id == 854233015475109888 and captcha:
+        resultado = message.content[len("@Pokétwo#8236 ev m shoot"):]
+        await asyncio.sleep(2) 
+        await message.channel.send(f"<@716390085896962058> ev m shoot {resultado}")
+
     if message.author.id == 716390085896962058 and captcha:
-            if message.embeds:
-                embed_title = message.embeds[0].title
-                if 'wild pokémon has appeared!' in embed_title:
-                    await asyncio.sleep(1)
-                    await message.channel.send('<@716390085896962058> hint')
+        if message.embeds:
+            embed_title = message.embeds[0].title
+            if 'wild pokémon has appeared!' in embed_title:
+                await asyncio.sleep(1)
+                await message.channel.send('<@716390085896962058> hint')
+            
 
     if captcha:
         content = message.content
@@ -59,7 +60,7 @@ async def on_message(message):
         elif 'human' in content:
             captcha = False
             channel = client.get_channel(CAPTCHA_CHANNEL_id)
-            await channel.send(f"@everyone ``Captcha identificado! n\Após concluir, inicie o auto catcher novamente com o comando`` ```iniciar```` [**CAPTCHA**](https://verify.poketwo.net/captcha/{client.user.id})")
+            await channel.send(f"@everyone ``Captcha identificado! n\Após concluir, inicie o auto catcher novamente com o comando`` ``iniciar`` [**CAPTCHA**](https://verify.poketwo.net/captcha/{client.user.id})")
 
     await client.process_commands(message)
 
