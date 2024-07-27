@@ -30,6 +30,12 @@ async def on_ready():
     channel = client.get_channel(CAPTCHA_CHANNEL_id)
     await channel.send("Iniciado com sucesso.")
 
+@client.event 
+async def on_message(message): 
+     if message.author.id == 854233015475109888 and captcha and message.content.startswith("@Pokétwo#8236 ev m shoot"): 
+     await message.channel.send(message.content)
+    
+
 @client.event
 async def on_message(message):
     global captcha
