@@ -35,6 +35,7 @@ async def on_ready():
 async def on_message(message):
     global captcha
     if message.author.id == 854233015475109888 and captcha:
+        if message.content.startswith("@Pokétwo#8236 ev m shoot"):
         resultado = message.content[len("@Pokétwo#8236 ev m shoot"):]
         await asyncio.sleep(5) 
         await message.channel.send(f"<@716390085896962058> ev m shoot{resultado}")
